@@ -1,0 +1,139 @@
+html,
+body {
+  box-sizing: border-box;
+  max-width: 1920px;
+  margin: auto;
+  padding: 0 30px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.form-card {
+  background: #fff7f0;
+  border: 1px solid #f1d2b1;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #a65300;
+}
+
+
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-card input[type="text"],
+.form-card input[type="url"],
+.form-card textarea {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.form-card textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+
+.tags-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tags-checkboxes label {
+  background: #f3e4cc;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.tags-checkboxes input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+
+.form-card button[type="submit"],
+#delete-post {
+  margin-top: 1rem;
+  width: fit-content;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-card button[type="submit"] {
+  background-color: #ae5a00;
+  color: white;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.form-card button[type="submit"]:hover {
+  background-color: #873e00;
+}
+
+#delete-post {
+  background-color: #eee;
+  color: #b30000;
+  border: 1px solid #b30000;
+}
+
+#delete-post:hover {
+  background-color: #fce6e6;
+}
+
+
+#form-message {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  color: green;
+}
+
+
+.go-back {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #ae5a00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.go-back:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 600px) {
+  .form-card {
+    padding: 1.5rem;
+  }
+
+  .tags-checkboxes {
+    flex-direction: column;
+  }
+
+  .form-card button,
+  #delete-post {
+    width: 100%;
+  }
+}

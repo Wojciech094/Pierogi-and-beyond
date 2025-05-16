@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="../Media/Img/favicon.png" />
+    <title>Pierogi and beyond</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+<link rel="stylesheet" href="../../css/login-reg.css" />
+</head>
+
+<body>
+    <div class="log-container">
+        <h1>Create Account</h1>
+        <section>
+            <h2>Register</h2>
+        <form id="register-form">
+            <input type="text" id="reg-name" name="name" placeholder="Username" required minlength="3" />
+            <input type="email" id="reg-email" name="email" placeholder="Email" required />
+            <input type="password" id="reg-password" name="password" placeholder="Password" required minlength="8" />
+            <button type="submit">Register</button>
+            <p id="register-message"></p>
+        </form>
+
+        </section>
+        <a href="login.html" class="go-back">Already have an account? Login</a><br />
+        <a href="../index.html" class="go-back">← Back to Home</a>
+    </div>
+
+    <script src="../../js/login-reg.js" defer></script>
+    <script src="../../js/auth.js" defer></script>
+</body>
+
+</html>

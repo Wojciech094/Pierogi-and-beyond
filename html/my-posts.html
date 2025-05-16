@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="../Media/Img/favicon.png" />
+    <title>Pierogi and beyond</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/nav-header-footer.css">
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <header class="top-header">
+        <header class="top-header">
+            <div class="top-bar">
+                <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
+                <div class="logo">
+                    <img src="../Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
+                </div>
+        
+                <nav class="main-nav">
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="../html/index.html">Home</a></li>
+                        <li><a href="#">Recipes</a></li>
+                        <li><a href="#">Articles</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+        
+                <div class="search-1 with-icon">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search for recipes and more ..." />
+                </div>
+        
+                <div class="user-dropdown">
+                    <button class="user-toggle" aria-label="Profile">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <span id="welcome-msg"></span>
+                    <div class="user-menu hidden" id="user-menu">
+                        <button>My posts</button>
+                        <button onclick="window.location.href='account/login.html'">Log in</button>
+                        <button onclick="window.location.href='account/register.html'">Register</button>
+                        <button id="logout-btn">Logout</button>
+                    </div>
+                </div>
+                <a href="../html/index.html"></a>
+                
+                <p id="login-status" class="status-msg" aria-live="polite">Checking login...</p>
+            </div>
+        </header>
+    </header>
+    <a href="../html/index.html" style="text-decoration:none; color:#ae5a00; font-weight:bold;">← Go back</a>
+    
+    <main class="page-container">
+        <h1>My Posts</h1>
+        <div id="my-posts-container"></div>
+    </main>
+
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/my-posts.js" defer></script>
+</body>
+
+</html>

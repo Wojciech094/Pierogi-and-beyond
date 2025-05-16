@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="../Media/Img/favicon.png" />
+    <title>Pierogi and beyond</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/single-post.css" />
+    <link rel="stylesheet" href="../css/nav-header-footer.css" />
+</head>
+
+<body>
+
+    <header class="top-header">
+        <div class="top-bar">
+            <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
+            <div class="logo">
+                <img src="../Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
+            </div>
+    
+            <nav class="main-nav">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Recipes</a></li>
+                    <li><a href="#">Articles</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+    
+            <div class="search-1 with-icon">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search for recipes and more ..." />
+            </div>
+    
+            <div class="user-dropdown">
+                <button class="user-toggle" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+                <span id="welcome-msg"></span>
+                <div class="user-menu hidden" id="user-menu">
+                    <button onclick="window.location.href='account/login.html'">Log in</button>
+                    <button onclick="window.location.href='account/register.html'">Register</button>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </div>
+    
+    
+    
+            <p id="login-status" class="status-msg" aria-live="polite">Checking login...</p>
+        </div>
+    </header>
+    
+    <div class="search-2 with-icon">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Search for recipes and more ..." />
+    </div>
+
+
+<main class="single-post">
+
+    
+    <div class="breadcrumb-container" id="post-breadcrumbs"></div>
+
+    
+    <div id="post-banner-wrapper">
+        <img id="post-banner-img" class="post-banner" src="" alt="Post image" />
+    </div>
+
+    
+    <div class="post-layout">
+        <div class="post-page" id="post-content"></div>
+
+        <aside class="about-me-box">
+            <img src="../Media/Img/baking person eva 1.jpg" alt="Eva Nowak" class="about-avatar" />
+            <h3>📯 About Me</h3>
+            <p>👩‍🍳 About Me
+            
+            Hi, I'm Eva Nowak — born and raised in Kraków, and probably guilty of eating too many pączki before breakfast. I grew up
+            in a kitchen filled with the scent of rose jam, simmering soups, and my Babcia's best stories. Now, I share those
+            flavors and memories here on Pierogi & Beyond. Whether you're Polish or just Polish at heart, I'm so glad you're here —
+            let's cook something delicious together!.</p>
+            
+        </aside>
+    </div>
+
+    
+    <div class="go-back-container">
+        <button onclick="history.back()" class="go-back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Go back to Home
+        </button>
+    </div>
+</main>
+
+    <section class="comments-section">
+        <h2>Comments</h2>
+        <form id="comment-form">
+            <input type="text" id="comment-name" placeholder="Your name" required />
+            <textarea id="comment-content" placeholder="Write a comment..." required></textarea>
+            <button type="submit">Post Comment</button>
+        </form>
+        <div id="comments-list"></div>
+    </section>
+
+
+
+
+    
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="../Media/Img/logo 2.svg" alt="Pierogi logo" />
+        </div>
+
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>foodblog@tasty.com</p>
+            <p>The apple street 1</p>
+            <p>Pie City, Norway</p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Menu</h4>
+            <a href="#">Home</a>
+            <a href="#">Recipes</a>
+            <a href="#">Articles</a>
+            <a href="#">Contacts</a>
+        </div>
+
+        <div class="footer-column">
+            <h4>Important</h4>
+            <a href="#">Policy</a>
+            <a href="#">Rules and terms</a>
+        </div>
+
+        <div class="footer-column">
+            <h4>Find us</h4>
+            <div class="social-icons">
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-youtube"></i>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/single-post.js" defer></script>
+    <script>
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
+
+

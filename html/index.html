@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="../Media/Img/favicon.png" />
+    <title>Pierogi and beyond</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/nav-header-footer.css">
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="top-bar">
+            <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
+            <div class="logo">
+                <img src="../Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
+            </div>
+
+            <nav class="main-nav">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Recipes</a></li>
+                    <li><a href="#">Articles</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="search-1 with-icon">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search for recipes and more ..." />
+            </div>
+
+            <div class="user-dropdown">
+                <button class="user-toggle" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+                <span id="welcome-msg"></span>
+                <div class="user-menu hidden" id="user-menu">
+                    <!-- <li><a href="my-posts.html">My Posts</a></li> -->
+                    <button id="my-posts-btn" onclick="window.location.href='../html/my-posts.html'">
+                        My posts </button>
+                    <button onclick="window.location.href='account/login.html'">Log in</button>
+                    <button onclick="window.location.href='account/register.html'">Register</button>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </div>
+            <a href="../html/index.html"></a>
+
+
+            <p id="login-status" class="status-msg" aria-live="polite">Checking login...</p>
+        </div>
+    </header>
+
+    <div class="search-2 with-icon">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Search for recipes and more ..." />
+    </div>
+
+
+
+    <section class="hero-banner">
+        <div class="hero-content">
+            <div class="hero-left">
+                <h1>Pierogi and beyond</h1>
+                <p class="subtitle">Discover delicious recipes and food stories</p>
+            </div>
+            <div class="hero-right">
+                <blockquote>
+                    “THE BEST FOOD BLOG ABOUT POLISH FOOD I HAVE EVER SEEN!”
+                    <cite>- Mike, Canada</cite>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+
+    <main class="main-content">
+        <section class="most-visited">
+            <h2>The Most Visited</h2>
+            <div class="carousel-container">
+                <button class="carousel-btn prev" aria-label="Previous Slide"> < </button>
+                        <div class="carousel-track" aria-live="polite"></div>
+                        <button class="carousel-btn next" aria-label="Next Slide">></button>
+                        <div class="carousel-indicators" aria-hidden="true"></div>
+            </div>
+        </section>
+
+
+        <h2> Create New Post</h2>
+        
+        <section id="admin-tools" style="display: none;">
+            
+            <p id="form-message"></p>
+        </section>
+
+
+        <div class="content-wrapper">
+            <div class="main-feed">
+                
+                <section class="newest-posts" id="newest-posts-section"></section>
+            </div>
+
+            <aside class="sidebar">
+                <div class="about-box">
+                    <h3>About</h3>
+                    <p>
+                        Pierogi & beyond Culinary Chronicles is a food blog dedicated to sharing
+                        delicious recipes, cooking tips, and food stories from around the world.
+                    </p>
+                    <button class="sidebar-btn">Know more</button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h4>Categories</h4>
+                    <ul class="category-list">
+                        <li>Breakfast</li>
+                        <li>Lunch</li>
+                        <li>Dinner</li>
+                        <li>Desserts</li>
+                        <li>Drinks</li>
+                        <li>Baking</li>
+                        <li>Traditional</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h4>Popular tags</h4>
+                    <div class="tag-list">
+                        <span class="tag">Recipe</span>
+                        <span class="tag">Healthy</span>
+                        <span class="tag">Comfort food</span>
+                        <span class="tag">Must have in Poland</span>
+                        <span class="tag">Quick & Easy</span>
+                        <span class="tag">Tasty & Unhealthy</span>
+                    </div>
+                </div>
+
+                <div class="subscribe-box">
+                    <h4>Subscribe</h4>
+                    <p>Get the latest recipes and articles delivered to your inbox.</p>
+                    <input type="email" placeholder="Your email" />
+                    <button class="subscribe-btn">Subscribe</button>
+                </div>
+            </aside>
+        </div>
+
+
+        
+
+        <div id="posts-container"></div>
+
+
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <img src="../Media/Img/logo 2.svg" alt="Pierogi logo" />
+                </div>
+
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>foodblog@tasty.com</p>
+                    <p>The apple street 1</p>
+                    <p>Pie City, Norway</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Menu</h4>
+                    <a href="#">Home</a>
+                    <a href="#">Recipes</a>
+                    <a href="#">Articles</a>
+                    <a href="#">Contacts</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Important</h4>
+                    <a href="#">Policy</a>
+                    <a href="#">Rules and terms</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Find us</h4>
+                    <div class="social-icons">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-linkedin"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="../js/auth.js" defer></script>
+        <script src="../js/script.js" defer></script>
+
+
+        <script>
+            const burger = document.getElementById('burger-menu');
+            const navLinks = document.getElementById('nav-links');
+
+            burger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const toggle = document.querySelector(".user-toggle");
+                const menu = document.getElementById("user-menu");
+
+                toggle?.addEventListener("click", () => {
+                    menu.classList.toggle("hidden");
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                        menu.classList.add("hidden");
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>
