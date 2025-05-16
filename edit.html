@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/png" href="../Media/Img/favicon.png" />
+    <link rel="icon" type="image/png" href="Media/Img/favicon.png" />
     <title>Pierogi and beyond</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="../Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
+                <img src="Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
             </div>
 
             <nav class="main-nav">
@@ -40,8 +40,8 @@
                 </button>
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
-                    <button onclick="window.location.href='account/login.html'">Log in</button>
-                    <button onclick="window.location.href='account/register.html'">Register</button>
+                    <button onclick="window.location.href='login.html'">Log in</button>
+                    <button onclick="window.location.href='register.html'">Register</button>
                     <button id="logout-btn">Logout</button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
     <script src="js/edit.js" defer></script>
     <script>
         if (!localStorage.getItem("token")) {
-            window.location.href = "../account/login.html";
+            window.location.href = "account/login.html";
         }
 
         
