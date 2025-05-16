@@ -28,7 +28,7 @@ async function loadPost() {
 
     if (breadcrumbs) {
       breadcrumbs.innerHTML = `
-        <a href="../html/index.html">Main page</a> &gt;
+        <a href="html">Main page</a> &gt;
         <span>${post.title}</span>
       `;
     }
