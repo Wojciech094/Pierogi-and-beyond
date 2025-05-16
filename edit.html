@@ -7,8 +7,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <link rel="stylesheet" href="../css/edit-create.css" />
-    <link rel="stylesheet" href="../css/nav-header-footer.css" />
+    <link rel="stylesheet" href="css/edit-create.css" />
+    <link rel="stylesheet" href="css/nav-header-footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
@@ -17,7 +17,7 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="../Media/Img/logo 2.svg" alt="My Blog Logo" width="60px" />
+                <img src="../Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
             </div>
 
             <nav class="main-nav">
@@ -52,24 +52,14 @@
 
     <main class="page-container">
         <section class="form-card">
-            <h2>Create New Blog Post</h2>
-            <form id="create-post-form">
+            <h2>Edit Blog Post</h2>
+            <form id="edit-post-form">
                 <input type="text" id="title" placeholder="Post Title" required />
-
-                <label for="body">Post Body</label>
-                <textarea id="body" placeholder="Type your post here. Use Enter twice to create new paragraphs."
-                    rows="12" required></textarea>
-                <small style="color: #555;">
-                    You can write <strong>normal text</strong> - new paragraphs will be created automatically.
-                </small>
-
-                <input type="text" id="recipe" placeholder="Recipe (optional)" style="display: none;" />
-                <input type="text" id="media-url" placeholder="Image URL (optional)" />
-
+                <textarea id="body" placeholder="Post Body" required style="height: 300px;"></textarea>
+                <input type="text" id="media-url" placeholder="Image URL" />
                 <div id="image-preview" style="display:none; text-align:center; margin-top:1rem;">
-                    <img id="preview-img" src="" alt="Image preview" style="max-width:100%; border-radius: 8px;" />  </div>
-                    
-                <input type="text" id="media-alt" placeholder="Image alt text (optional)" />
+                    <img id="preview-img" src="" alt="Image preview" style="max-width:100%; border-radius: 8px;" /></div>
+                <input type="text" id="media-alt" placeholder="Image alt text" />
                 <input type="text" id="tags" placeholder="Tags (comma separated)" style="display: none;" />
 
                 <div class="tags-checkboxes">
@@ -78,20 +68,22 @@
                     <label><input type="checkbox" name="post-tags" value="carousel" /> Carousel</label>
                 </div>
 
-                <button type="submit"><i class="fa-solid fa-plus"></i> Publish</button>
+                <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                <button type="button" id="delete-post"><i class="fa-solid fa-trash"></i> Delete Post</button>
                 <p id="form-message"></p>
             </form>
-            <a href="./index.html" class="go-back">← Back to Home</a>
+            <a href="index.html" class="go-back">← Back to Home</a>
         </section>
     </main>
 
-    <script src="../js/auth.js" defer></script>
-    <script src="../js/create.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/edit.js" defer></script>
     <script>
         if (!localStorage.getItem("token")) {
             window.location.href = "../account/login.html";
         }
 
+        
         const burger = document.getElementById("burger-menu");
         const navLinks = document.getElementById("nav-links");
 
