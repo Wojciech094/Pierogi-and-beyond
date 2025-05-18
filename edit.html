@@ -6,7 +6,7 @@
     <title>Pierogi and beyond</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <link rel="stylesheet" href="css/edit-create.css" />
     <link rel="stylesheet" href="css/nav-header-footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -17,7 +17,7 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60px">
+                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60">
             </div>
 
             <nav class="main-nav">
@@ -58,7 +58,10 @@
                 <textarea id="body" placeholder="Post Body" required style="height: 300px;"></textarea>
                 <input type="text" id="media-url" placeholder="Image URL" />
                 <div id="image-preview" style="display:none; text-align:center; margin-top:1rem;">
-                    <img id="preview-img" src="" alt="Image preview" style="max-width:100%; border-radius: 8px;" /></div>
+
+                    <img id="preview-img" src="https://via.placeholder.com/400x300" alt="Image preview"
+                        style="max-width:100%; border-radius: 8px;" />
+                </div>
                 <input type="text" id="media-alt" placeholder="Image alt text" />
                 <input type="text" id="tags" placeholder="Tags (comma separated)" style="display: none;" />
 
@@ -83,7 +86,7 @@
             window.location.href = "account/login.html";
         }
 
-        
+
         const burger = document.getElementById("burger-menu");
         const navLinks = document.getElementById("nav-links");
 
