@@ -17,7 +17,7 @@ if (token && adminSection) {
   createBtn.href = "create.html";
   createBtn.className = "btn-main";
   createBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Create New Post`;
-  adminSection.prepend(createBtn);
+  adminSection.append(createBtn);
 }
 
 // edit-delete
