@@ -4,6 +4,7 @@
 <head>
     <link rel="icon" type="image/png" href="Media/Img/favicon.png" />
     <title>Pierogi and beyond</title>
+    <meta name="description" content="A modern Polish food blog with recipes, tips and stories.">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -16,7 +17,7 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img  src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60" height="auto">
+                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60">
             </div>
 
             <nav class="main-nav">
@@ -47,9 +48,7 @@
                     <button id="logout-btn">Logout</button>
                 </div>
             </div>
-            <a href="index.html"></a>
-
-
+           
             <p id="login-status" class="status-msg" aria-live="polite">Checking login...</p>
         </div>
     </header>
@@ -99,10 +98,10 @@
 
         <div class="content-wrapper">
             <div class="main-feed">
-                <h2>Newest Posts</h2>
-
-                <section class="newest-posts" id="newest-posts-section"></section>
-            </div>
+                <section class="newest-posts-wrapper">
+                    <h2>Newest Posts</h2>
+                    <section class="newest-posts" id="newest-posts-section"></section>        </section>
+                </div>
 
             <aside class="sidebar">
                 <div class="about-box">
