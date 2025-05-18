@@ -8,7 +8,9 @@
   }
   
   .logo {
-    display: flex;
+    width: 60px;
+    height: auto;
+        display: flex;
     justify-content: center;
     align-items: center;
   }
