@@ -1,21 +1,16 @@
-
+const usersToFetch = ["VooDoo", "Testuser123"];
 const username = "VooDoo";
+
 const token = `Bearer ${localStorage.getItem("token")}`;
-const apiUrl = `https://v2.api.noroff.dev/blog/posts/${username}`;
 const user = JSON.parse(localStorage.getItem("user"));
 const isAdmin = user?.isAdmin;
 
-// DOM
-const postsContainer = document.getElementById("posts-container");
-const form = document.getElementById("create-post-form");
-const message = document.getElementById("form-message");
-const adminSection = document.getElementById("admin-tools");
-const toggleContainer = document.getElementById("admin-toggle-container");
-const toggleButton = document.getElementById("toggle-admin-tools");
-const togglePostsToolsBtn = document.getElementById("toggle-posts-tools");
+const apiUrl = `https://v2.api.noroff.dev/blog/posts/${username}`;
 
-//            create post btn"
-if (isAdmin && adminSection) {
+const postsContainer = document.getElementById("posts-container");
+const adminSection = document.getElementById("admin-tools");
+
+if (token && adminSection) {
   adminSection.style.display = "block";
 
   const createBtn = document.createElement("a");
@@ -25,13 +20,11 @@ if (isAdmin && adminSection) {
   adminSection.prepend(createBtn);
 }
 
-//  btn 
-
+// edit-delete
 document.addEventListener("click", async (e) => {
   const postId = e.target.dataset.id;
   if (!postId) return;
 
-  // delete
   if (e.target.classList.contains("delete-btn")) {
     const confirmDelete = confirm("Are you sure?");
     if (!confirmDelete) return;
@@ -51,14 +44,12 @@ document.addEventListener("click", async (e) => {
     }
   }
 
-  // edit
   if (e.target.classList.contains("edit-btn")) {
     window.location.href = `edit.html?id=${postId}`;
-    return;
   }
 });
 
-// admin post
+// admin posts
 async function getPosts() {
   try {
     const response = await fetch(apiUrl);
@@ -68,55 +59,59 @@ async function getPosts() {
     postsContainer.innerHTML = "";
 
     posts.forEach((post) => {
+      const isOwner = post.author?.name === user?.name;
+
       const postElement = document.createElement("div");
       postElement.classList.add("post");
 
       postElement.innerHTML = `
         <h2>${post.title}</h2>
-        <img src="${post.media?.url || "https://via.placeholder.com/300"}" 
-             alt="${
-               post.media?.alt || "Post image"
-             }" width="300" height="200" loading="lazy" />
         <p>${getPostPreview(post.body)}</p>
-        <small>Tags: ${post.tags.join(", ")}</small><br/>
+        <p>By: ${post.author.name}</p>
         ${
-          isAdmin || user?.name === post.author.name
-            ? `<button class="edit-btn" data-id="${post.id}"><i class="fa-solid fa-pencil"></i> Edit</button>
-               <button class="delete-btn" data-id="${post.id}"><i class="fa-solid fa-trash"></i> Delete</button>`
+          isAdmin || isOwner
+            ? `<button class="edit-btn" data-id="${post.id}">Edit</button>
+               <button class="delete-btn" data-id="${post.id}">Delete</button>`
             : ""
         }
         <hr/>
       `;
+
       postsContainer.appendChild(postElement);
     });
   } catch (err) {
-    console.error("Carousel load failed:", err);
+    console.error("getPosts failed:", err);
   }
 }
 
-//     most visited post"
+// caro
 async function loadCarouselPosts() {
   const carouselTrack = document.querySelector(".carousel-track");
   const indicatorsContainer = document.querySelector(".carousel-indicators");
   if (!carouselTrack || !indicatorsContainer) return;
 
   try {
-    const res = await fetch(`${apiUrl}?_tag=carousel`);
-    const { data: posts } = await res.json();
+    let allCarouselPosts = [];
+
+    for (const username of usersToFetch) {
+      const res = await fetch(
+        `https://v2.api.noroff.dev/blog/posts/${username}?_tag=carousel`
+      );
+      if (!res.ok) continue;
+      const { data } = await res.json();
+      allCarouselPosts.push(...data);
+    }
 
     carouselTrack.innerHTML = "";
     indicatorsContainer.innerHTML = "";
 
-    posts.forEach((post) => {
+    allCarouselPosts.forEach((post) => {
       const card = document.createElement("div");
       card.classList.add("visited-card");
 
       card.innerHTML = `
-        <img src="${
-          post.media?.url || "https://via.placeholder.com/300"
-        }" alt="${
-        post.media?.alt || post.title
-      }" width="400" height="300" loading="lazy" />
+        <img src="${post.media?.url || "https://via.placeholder.com/300"}"
+             alt="${post.media?.alt || post.title}" />
         <div class="visited-card-content">
           <h3 class="card-title">${post.title}</h3>
         </div>
@@ -129,13 +124,13 @@ async function loadCarouselPosts() {
       carouselTrack.appendChild(card);
     });
 
-    setupCarousel(posts.length);
+    setupCarousel(allCarouselPosts.length);
   } catch (err) {
     console.error("Carousel load failed:", err);
   }
 }
 
-//          post text short
+// ¨text post
 function getPostPreview(html, maxLength = 150) {
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = html;
@@ -143,7 +138,7 @@ function getPostPreview(html, maxLength = 150) {
   return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 }
 
-//     caro
+//    caro
 function setupCarousel(totalCards) {
   const track = document.querySelector(".carousel-track");
   const cards = document.querySelectorAll(".visited-card");
@@ -188,58 +183,90 @@ function setupCarousel(totalCards) {
   };
 }
 
-// load newest posts"
+//               new posts
+let allNewestPosts = [];
+let currentPostIndex = 0;
+const postsPerPage = 5;
+
 async function loadNewestPosts() {
   const newestSection = document.getElementById("newest-posts-section");
-  if (!newestSection) return;
+  const showMoreBtn = document.getElementById("show-more-btn");
+  if (!newestSection || !showMoreBtn) return;
 
   try {
-    const res = await fetch(apiUrl);
-    const result = await res.json();
-    const posts = result.data;
+    let allPosts = [];
 
+    for (const username of usersToFetch) {
+      const res = await fetch(
+        `https://v2.api.noroff.dev/blog/posts/${username}`
+      );
+      if (!res.ok) continue;
+      const { data } = await res.json();
+      allPosts.push(...data);
+    }
+
+    allNewestPosts = allPosts
+      .filter((post) => !post.tags.includes("carousel"))
+      .sort((a, b) => new Date(b.created) - new Date(a.created));
+
+    currentPostIndex = 0;
     newestSection.innerHTML = "";
 
-    posts
-      .filter((post) => !post.tags.includes("carousel"))
-      .forEach((post) => {
-        const card = document.createElement("div");
-        card.classList.add("newest-post");
+    renderMorePosts();
 
-        const tagHTML = post.tags
-          .map((tag) => {
-            const safeClass = tag.toLowerCase().replace(/\s+/g, "-");
-            return `<span class="tag tag-${safeClass}">${tag}</span>`;
-          })
-          .join(" ");
-
-        card.innerHTML = `
-          <img src="${
-            post.media?.url || "https://via.placeholder.com/400"
-          }" alt="${
-          post.media?.alt || post.title
-        }" width="600" height="400" loading="lazy" />
-          <div class="post-body">
-            <div class="tags">${tagHTML}</div>
-            <h3>${post.title}</h3>
-            <p class="author">By ${post.author?.name || "Unknown"}</p>
-            <p>${getPostPreview(post.body)}</p>
-            <a class="read-btn" href="single-post.html?id=${
-              post.id
-            }">Go to article</a>
-          </div>
-        `;
-
-        newestSection.appendChild(card);
-      });
+    if (allNewestPosts.length > postsPerPage) {
+      showMoreBtn.style.display = "block";
+    } else {
+      showMoreBtn.style.display = "none";
+    }
   } catch (err) {
     console.error("Newest posts load failed:", err);
-
-    if (newestSection) {
-      newestSection.innerHTML = `<p style="color:red;">Failed to load newest posts. Please try again later.</p>`;
-    }
+    newestSection.innerHTML = `<p style="color:red;">Failed to load newest posts.</p>`;
   }
 }
+function renderMorePosts() {
+  const newestSection = document.getElementById("newest-posts-section");
+  const end = currentPostIndex + postsPerPage;
+  const postsToRender = allNewestPosts.slice(currentPostIndex, end);
+
+  postsToRender.forEach((post) => {
+    const card = document.createElement("div");
+    card.classList.add("newest-post");
+
+    const tagHTML = post.tags
+      .map((tag) => {
+        const safeClass = tag.toLowerCase().replace(/\s+/g, "-");
+        return `<span class="tag tag-${safeClass}">${tag}</span>`;
+      })
+      .join(" ");
+
+    card.innerHTML = `
+      <img src="${post.media?.url || "https://via.placeholder.com/400"}"
+           alt="${post.media?.alt || post.title}" />
+      <div class="post-body">
+        <div class="tags">${tagHTML}</div>
+        <h3>${post.title}</h3>
+        <p class="author">By ${post.author?.name || "Unknown"}</p>
+        <p>${getPostPreview(post.body || "")}</p>
+        <a class="read-btn" href="single-post.html?id=${post.id}">
+          Go to article
+        </a>
+      </div>
+    `;
+
+    newestSection.appendChild(card);
+  });
+
+  currentPostIndex += postsPerPage;
+
+  const showMoreBtn = document.getElementById("show-more-btn");
+  if (currentPostIndex >= allNewestPosts.length) {
+    showMoreBtn.style.display = "none";
+  }
+}
+document
+  .getElementById("show-more-btn")
+  .addEventListener("click", renderMorePosts);
 
 loadCarouselPosts();
 loadNewestPosts();

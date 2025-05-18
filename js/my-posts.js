@@ -1,8 +1,11 @@
 const token = `Bearer ${localStorage.getItem("token")}`;
 const user = JSON.parse(localStorage.getItem("user"));
+const isAdmin = user?.isAdmin;
 const username = user?.name;
-const apiUrl = `https://v2.api.noroff.dev/blog/posts/${username}`;
 const container = document.getElementById("my-posts-container");
+
+
+const usersToFetch = isAdmin ? ["VooDoo", "Testuser123", "guest"] : [username];
 
 if (!token || !user) {
   window.location.href = "../account/login.html";
@@ -10,44 +13,56 @@ if (!token || !user) {
 
 async function loadMyPosts() {
   try {
-    const res = await fetch(apiUrl);
-    const result = await res.json();
-    const posts = result.data;
-
     container.innerHTML = "";
+    let allPosts = [];
 
-    posts.forEach((post) => {
+    for (const u of usersToFetch) {
+      const res = await fetch(`https://v2.api.noroff.dev/blog/posts/${u}`, {
+        headers: { Authorization: token },
+      });
+      if (!res.ok) continue;
+
+      const { data } = await res.json();
+      allPosts.push(...data);
+    }
+
+    allPosts.forEach((post) => {
+      const isOwner = post.author?.name === username;
+
       const div = document.createElement("div");
-      div.classList.add("newest-post"); 
+      div.classList.add("newest-post");
 
       div.innerHTML = `
-          <img src="${
-            post.media?.url || "https://placehold.co/600x400"
-          }" alt="${post.media?.alt || post.title}" />
-          <div class="post-body">
-            <div class="tags">
-              ${post.tags
-                .map(
-                  (tag) =>
-                    `<span class="tag tag-${tag
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}">${tag}</span>`
-                )
-                .join(" ")}
-            </div>
-            <h3>${post.title}</h3>
-            <p class="author">By ${post.author?.name || "Unknown"}</p>
-            <p>${getPreview(post.body)}</p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="edit-btn" data-id="${post.id}">
-                <i class="fa-solid fa-pencil"></i> Edit
-              </button>
-              <button class="delete-btn" data-id="${post.id}">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </div>
+        <img src="${post.media?.url || "https://placehold.co/600x400"}"
+             alt="${post.media?.alt || post.title}" />
+        <div class="post-body">
+          <div class="tags">
+            ${post.tags
+              .map(
+                (tag) =>
+                  `<span class="tag tag-${tag
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}">${tag}</span>`
+              )
+              .join(" ")}
           </div>
-        `;
+          <h3>${post.title}</h3>
+          <p class="author">By ${post.author?.name || "Unknown"}</p>
+          <p>${getPreview(post.body)}</p>
+          ${
+            isOwner || isAdmin
+              ? `<div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="edit-btn" data-id="${post.id}" data-user="${post.author.name}">
+                    <i class="fa-solid fa-pencil"></i> Edit
+                  </button>
+                  <button class="delete-btn" data-id="${post.id}" data-user="${post.author.name}">
+                    <i class="fa-solid fa-trash"></i> Delete
+                  </button>
+                </div>`
+              : ""
+          }
+        </div>
+      `;
 
       container.appendChild(div);
     });
@@ -64,10 +79,12 @@ function getPreview(html, maxLength = 150) {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 }
 
-
 document.addEventListener("click", async (e) => {
   const id = e.target.dataset.id;
-  if (!id) return;
+  const author = e.target.dataset.user;
+  if (!id || !author) return;
+
+  const postUrl = `https://v2.api.noroff.dev/blog/posts/${author}/${id}`;
 
   if (e.target.classList.contains("edit-btn")) {
     window.location.href = `edit.html?id=${id}`;
@@ -78,7 +95,7 @@ document.addEventListener("click", async (e) => {
     if (!confirm("Delete this post?")) return;
 
     try {
-      const res = await fetch(`${apiUrl}/${id}`, {
+      const res = await fetch(postUrl, {
         method: "DELETE",
         headers: { Authorization: token },
       });

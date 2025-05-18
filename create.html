@@ -17,38 +17,44 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="Media/Img/logo 2.svg" alt="My Blog Logo" width="60px" />
+                <img src="Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
             </div>
-
+    
             <nav class="main-nav">
                 <ul class="nav-links" id="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li><a href="#">Recipes</a></li>
                     <li><a href="#">Articles</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav>
-
+    
             <div class="search-1 with-icon">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" placeholder="Search for recipes and more ..." />
             </div>
-
+    
             <div class="user-dropdown">
                 <button class="user-toggle" aria-label="Profile">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
-                    <button onclick="window.location.href='account/login.html'">Log in</button>
-                    <button onclick="window.location.href='account/register.html'">Register</button>
+                    <!-- <li><a href="my-posts.html">My Posts</a></li> -->
+                    <button id="my-posts-btn" onclick="window.location.href='my-posts.html'">
+                        My posts </button>
+                    <button onclick="window.location.href='login.html'">Log in</button>
+                    <button onclick="window.location.href='register.html'">Register</button>
                     <button id="logout-btn">Logout</button>
                 </div>
             </div>
-
+            <a href="index.html"></a>
+    
+    
             <p id="login-status" class="status-msg" aria-live="polite">Checking login...</p>
         </div>
     </header>
+
 
     <main class="page-container">
         <section class="form-card">
@@ -67,6 +73,7 @@
                 <input type="text" id="media-url" placeholder="Image URL (optional)" />
 
                 <div id="image-preview" style="display:none; text-align:center; margin-top:1rem;">
+                    
                     <img id="preview-img" src="" alt="Image preview" style="max-width:100%; border-radius: 8px;" />  </div>
                     
                 <input type="text" id="media-alt" placeholder="Image alt text (optional)" />

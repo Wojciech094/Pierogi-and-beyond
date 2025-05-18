@@ -16,7 +16,7 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="Media/Img/logo 2.svg" alt="My Blog Logo" width="60px">
+                <img src="Media/Img/logo 2.svg" alt="My Blog Logo" width="60" height="auto">
             </div>
 
             <nav class="main-nav">
@@ -81,26 +81,28 @@
         <section class="most-visited">
             <h2>The Most Visited</h2>
             <div class="carousel-container">
-                <button class="carousel-btn prev" aria-label="Previous Slide"> < </button>
-                        <div class="carousel-track" aria-live="polite"></div>
-                        <button class="carousel-btn next" aria-label="Next Slide">></button>
-                        <div class="carousel-indicators" aria-hidden="true"></div>
+                <button class="carousel-btn prev" aria-label="Previous Slide"> &lt;</button>
+                <div class="carousel-track" aria-live="polite"></div>
+                <button class="carousel-btn next" aria-label="Next Slide">></button>
+                <div class="carousel-indicators" aria-hidden="true"></div>
             </div>
         </section>
 
 
         <h2> Create New Post</h2>
-        
+
         <section id="admin-tools" style="display: none;">
-            
+
             <p id="form-message"></p>
         </section>
 
 
         <div class="content-wrapper">
             <div class="main-feed">
-                
-                <section class="newest-posts" id="newest-posts-section"></section>
+
+                <section class="newest-posts" id="newest-posts-section">
+                    <h2>Newest Posts</h2>
+                </section>
             </div>
 
             <aside class="sidebar">
@@ -148,78 +150,79 @@
         </div>
 
 
-        
+
 
         <div id="posts-container"></div>
+        <section id="newest-posts-section"></section>
+        <button id="show-more-btn" class="btn-main" style="display:none">Show more</button>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="Media/Img/logo 2.svg" alt="Pierogi logo">
+            </div>
 
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>foodblog@tasty.com</p>
+                <p>The apple street 1</p>
+                <p>Pie City, Norway</p>
+            </div>
 
-        <footer class="site-footer">
-            <div class="footer-container">
-                <div class="footer-logo">
-                    <img src="Media/Img/logo 2.svg" alt="Pierogi logo" />
-                </div>
+            <div class="footer-column">
+                <h4>Menu</h4>
+                <a href="#">Home</a>
+                <a href="#">Recipes</a>
+                <a href="#">Articles</a>
+                <a href="#">Contacts</a>
+            </div>
 
-                <div class="footer-column">
-                    <h4>Contact</h4>
-                    <p>foodblog@tasty.com</p>
-                    <p>The apple street 1</p>
-                    <p>Pie City, Norway</p>
-                </div>
+            <div class="footer-column">
+                <h4>Important</h4>
+                <a href="#">Policy</a>
+                <a href="#">Rules and terms</a>
+            </div>
 
-                <div class="footer-column">
-                    <h4>Menu</h4>
-                    <a href="#">Home</a>
-                    <a href="#">Recipes</a>
-                    <a href="#">Articles</a>
-                    <a href="#">Contacts</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Important</h4>
-                    <a href="#">Policy</a>
-                    <a href="#">Rules and terms</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Find us</h4>
-                    <div class="social-icons">
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-facebook"></i>
-                        <i class="fab fa-linkedin"></i>
-                        <i class="fab fa-youtube"></i>
-                    </div>
+            <div class="footer-column">
+                <h4>Find us</h4>
+                <div class="social-icons">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-youtube"></i>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        <script src="js/auth.js" defer></script>
-        <script src="js/script.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/script.js" defer></script>
 
 
-        <script>
-            const burger = document.getElementById('burger-menu');
-            const navLinks = document.getElementById('nav-links');
+    <script>
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
 
-            burger.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.querySelector(".user-toggle");
+            const menu = document.getElementById("user-menu");
+
+            toggle?.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
             });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const toggle = document.querySelector(".user-toggle");
-                const menu = document.getElementById("user-menu");
 
-                toggle?.addEventListener("click", () => {
-                    menu.classList.toggle("hidden");
-                });
-
-                document.addEventListener("click", (e) => {
-                    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-                        menu.classList.add("hidden");
-                    }
-                });
+            document.addEventListener("click", (e) => {
+                if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.add("hidden");
+                }
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>

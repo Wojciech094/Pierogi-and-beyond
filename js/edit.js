@@ -13,14 +13,14 @@ const message = document.getElementById("form-message");
 const deleteBtn = document.getElementById("delete-post");
 const form = document.getElementById("edit-post-form");
 
-//  text  edit
+// HTML 
 function convertHTMLToText(html) {
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = html;
   return tempDiv.innerText.trim();
 }
 
-// text save
+// plain text ➜ HTML
 function convertTextToHTML(text) {
   return text
     .trim()
@@ -29,12 +29,12 @@ function convertTextToHTML(text) {
     .join("\n");
 }
 
-//  not login
+// redirect if not logged in
 if (!localStorage.getItem("token")) {
   window.location.href = "../account/login.html";
 }
 
-//    post down
+// load post data
 async function loadPostForEdit() {
   try {
     const res = await fetch(apiUrl);
@@ -48,7 +48,7 @@ async function loadPostForEdit() {
     mediaAltInput.value = data.media?.alt || "";
     tagsInput.value = data.tags.join(", ");
 
-    // checkboxy 
+    
     data.tags.forEach((tag) => {
       const checkbox = document.querySelector(
         `input[name="post-tags"][value="${tag}"]`
@@ -56,33 +56,43 @@ async function loadPostForEdit() {
       if (checkbox) checkbox.checked = true;
     });
   } catch (err) {
-    message.textContent = " Failed to load post.";
+    message.textContent = "Failed to load post.";
     console.error("Load post error:", err);
   }
 }
 
-// save change
+//     save post
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // 
-  const manualTags = tagsInput.value
+  const allCheckboxes = document.querySelectorAll('input[name="post-tags"]');
+  const selectedCheckboxTags = [];
+  const allCheckboxTags = [];
+
+  allCheckboxes.forEach((cb) => {
+    const value = cb.value.toLowerCase();
+    allCheckboxTags.push(value);
+    if (cb.checked) {
+      selectedCheckboxTags.push(value);
+    }
+  });
+
+  let manualTags = tagsInput.value
     .split(",")
-    .map((t) => t.trim())
+    .map((t) => t.trim().toLowerCase())
     .filter(Boolean);
 
-  const checkedBoxes = document.querySelectorAll(
-    'input[name="post-tags"]:checked'
-  );
-  const checkboxTags = Array.from(checkedBoxes).map((cb) => cb.value);
+  manualTags = manualTags.filter((tag) => !allCheckboxTags.includes(tag));
 
-  let tags = [...manualTags, ...checkboxTags];
+  let tags = [...manualTags, ...selectedCheckboxTags];
+  tags = [...new Set(tags)];
+
   if (tags.length === 0) tags = ["general"];
 
   const updatedPost = {
     title: titleInput.value.trim(),
     body: convertTextToHTML(bodyInput.value.trim()),
-    tags: tags.map((t) => t.toLowerCase()),
+    tags,
   };
 
   if (mediaUrlInput.value.trim()) {
@@ -108,9 +118,9 @@ form.addEventListener("submit", async (e) => {
       throw new Error(result.errors?.[0]?.message || "Update failed");
     }
 
-    message.textContent = " Post updated successfully!";
+    message.textContent = "Post updated successfully!";
   } catch (err) {
-    message.textContent = ` Error: ${err.message}`;
+    message.textContent = `Error: ${err.message}`;
     console.error("Update error:", err);
   }
 });
@@ -128,16 +138,16 @@ deleteBtn.addEventListener("click", async () => {
 
     if (!res.ok) throw new Error("Delete failed");
 
-    alert(" Post deleted.");
+    alert("Post deleted.");
     window.location.href = "./index.html";
   } catch (err) {
-    message.textContent = " Failed to delete post.";
+    message.textContent = "Failed to delete post.";
     console.error("Delete error:", err);
   }
 });
 
+// image 
 document.addEventListener("DOMContentLoaded", () => {
-  const mediaUrlInput = document.getElementById("media-url");
   const previewWrapper = document.getElementById("image-preview");
   const previewImg = document.getElementById("preview-img");
 
@@ -153,6 +163,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+});
+
+// update  checkboxes change
+function updateTagsInputFromCheckboxes() {
+  const allCheckboxes = document.querySelectorAll('input[name="post-tags"]');
+  const checkedTags = [];
+
+  allCheckboxes.forEach((cb) => {
+    if (cb.checked) {
+      checkedTags.push(cb.value.toLowerCase());
+    }
+  });
+
+  let manualTags = tagsInput.value
+    .split(",")
+    .map((t) => t.trim().toLowerCase())
+    .filter(Boolean);
+
+  const allCheckboxValues = Array.from(allCheckboxes).map((cb) =>
+    cb.value.toLowerCase()
+  );
+  manualTags = manualTags.filter((tag) => !allCheckboxValues.includes(tag));
+
+  const combined = [...manualTags, ...checkedTags];
+  tagsInput.value = combined.join(", ");
+}
+
+//  checkboxes
+document.querySelectorAll('input[name="post-tags"]').forEach((cb) => {
+  cb.addEventListener("change", updateTagsInputFromCheckboxes);
 });
 
 loadPostForEdit();

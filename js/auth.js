@@ -12,7 +12,9 @@ function checkUserStatus() {
   );
   const postsListSection = document.getElementById("posts-container");
   const myPostsBtn = document.getElementById("my-posts-btn");
-
+  if (user?.isAdmin) {
+    document.body.classList.add("admin-mode");
+  }
   if (token && user) {
  
     if (authButtons) authButtons.style.display = "none";
