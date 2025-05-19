@@ -10,12 +10,12 @@ body {
 }
 
 .hero-banner {
-  padding: 3rem 2rem;
+  padding: 3rem 2rem; 
   border-bottom: 1px solid #eee;
 }
 
 .hero-content {
-  max-width: 1200px;
+  max-width: 1920px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -26,11 +26,12 @@ body {
 
 .hero-left h1 {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
   color: #111;
 }
 
 .subtitle {
+  margin: 0.2rem;
   font-size: 1.1rem;
   color: #555;
 }
@@ -178,11 +179,12 @@ body {
 }
 
 .newest-post img {
-  width: 600px;
-  height: auto;
-  object-fit: cover;
-  flex-shrink: 0;
-}
+  
+    width: 50%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 
 .post-header {
   display: flex;

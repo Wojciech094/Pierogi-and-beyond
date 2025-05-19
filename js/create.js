@@ -4,11 +4,10 @@ const apiUrl = `https://v2.api.noroff.dev/blog/posts/${username}`;
 const form = document.getElementById("create-post-form");
 const message = document.getElementById("form-message");
 
-// 
 function convertTextToHTML(text) {
   return text
     .trim()
-    .split("\n\n") 
+    .split("\n\n")
     .map((paragraph) => `<p>${paragraph.replace(/\n/g, "<br>")}</p>`)
     .join("\n");
 }
@@ -18,12 +17,11 @@ form?.addEventListener("submit", async (e) => {
 
   const title = document.getElementById("title").value.trim();
   const rawBody = document.getElementById("body").value.trim();
-  const body = convertTextToHTML(rawBody); 
+  const body = convertTextToHTML(rawBody);
   const mediaUrl = document.getElementById("media-url").value.trim();
   const mediaAlt = document.getElementById("media-alt").value.trim();
   const recipe = document.getElementById("recipe")?.value.trim();
 
-  // checkbox
   const isCarouselChecked = document.querySelector(
     'input[name="post-tags"][value="carousel"]'
   )?.checked;
@@ -46,7 +44,6 @@ form?.addEventListener("submit", async (e) => {
   if (isCarouselChecked) tags.push("carousel");
   if (tags.length === 0) tags = ["general"];
 
-  // 
   const fullBody = recipe
     ? `${body}<br><br><strong>Recipe:</strong><br>${recipe}`
     : body;
@@ -64,6 +61,48 @@ form?.addEventListener("submit", async (e) => {
     };
   }
 
+  // 🔁 LIMIT CAROUSEL: max 9 posts with "carousel" tag
+  try {
+    if (tags.includes("carousel")) {
+      const res = await fetch(
+        `https://v2.api.noroff.dev/blog/posts/${username}?_tag=carousel`
+      );
+      const { data: carouselPosts } = await res.json();
+
+      if (carouselPosts.length >= 9) {
+        const sorted = carouselPosts.sort(
+          (a, b) => new Date(a.created) - new Date(b.created)
+        );
+        const oldest = sorted[0];
+        const updatedTags = oldest.tags.filter(
+          (tag) => tag.toLowerCase() !== "carousel"
+        );
+
+        const updatedPost = {
+          title: oldest.title,
+          body: oldest.body,
+          tags: updatedTags,
+          media: oldest.media,
+        };
+
+        await fetch(
+          `https://v2.api.noroff.dev/blog/posts/${username}/${oldest.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+            body: JSON.stringify(updatedPost),
+          }
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Error managing carousel limit:", error);
+  }
+
+  // 📤 CREATE POST
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
@@ -82,9 +121,11 @@ form?.addEventListener("submit", async (e) => {
     form.reset();
   } catch (err) {
     console.error("Error creating post:", err.message);
-    message.textContent = ` Error: ${err.message}`;
+    message.textContent = `Error: ${err.message}`;
   }
 });
+
+// === LIVE IMAGE PREVIEW ===
 const mediaUrlInput = document.getElementById("media-url");
 const previewWrapper = document.getElementById("image-preview");
 const previewImg = document.getElementById("preview-img");

@@ -22,7 +22,7 @@
 
             <nav class="main-nav">
                 <ul class="nav-links" id="nav-links">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="#">Recipes</a></li>
                     <li><a href="#">Articles</a></li>
                     <li><a href="#">Contact</a></li>
@@ -31,7 +31,7 @@
 
             <div class="search-1 with-icon">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" placeholder="Search for recipes and more ..." />
+                <input type="text" id="search-post-desktop" placeholder="Search for recipes and more ..." />
             </div>
 
             <div class="user-dropdown">
@@ -40,7 +40,7 @@
                 </button>
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
-                    <!-- <li><a href="my-posts.html">My Posts</a></li> -->
+                    
                     <button id="my-posts-btn" onclick="window.location.href='my-posts.html'">
                         My posts </button>
                     <button onclick="window.location.href='login.html'">Log in</button>
@@ -55,7 +55,7 @@
 
     <div class="search-2 with-icon">
         <i class="fas fa-search search-icon"></i>
-        <input type="text" placeholder="Search for recipes and more ..." />
+        <input type="text" id="search-post-mobile" placeholder="Search for recipes and more ..." />
     </div>
 
 
@@ -97,6 +97,8 @@
             <div class="main-feed">
                 <section class="newest-posts-wrapper">
                     <h2>Newest Posts</h2>
+
+                    
                     <section id="newest-posts-section" class="newest-posts"></section>
                     <button id="show-more-btn" class="btn-main" style="display: none;">Show more</button> 
                 </section>
@@ -150,7 +152,7 @@
 
 
         <div id="posts-container"></div>
-        <!-- <section id="newest-posts-section"></section> -->
+        
         
     </main>
     <footer class="site-footer">

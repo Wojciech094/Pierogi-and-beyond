@@ -29,11 +29,17 @@ document.addEventListener("click", async (e) => {
     const confirmDelete = confirm("Are you sure?");
     if (!confirmDelete) return;
 
+    const postAuthor = isAdmin ? e.target.dataset.author : username;
+
     try {
-      const res = await fetch(`${apiUrl}/${postId}`, {
-        method: "DELETE",
-        headers: { Authorization: token },
-      });
+      const res = await fetch(
+        `https://v2.api.noroff.dev/blog/posts/${postAuthor}/${postId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: token },
+        }
+      );
+
       if (!res.ok) throw new Error("Failed to delete post");
       alert("Post deleted");
       getPosts();
@@ -102,10 +108,16 @@ async function loadCarouselPosts() {
       allCarouselPosts.push(...data);
     }
 
+    
+    const sorted = allCarouselPosts.sort(
+      (a, b) => new Date(b.created) - new Date(a.created)
+    );
+    const limited = sorted.slice(0, 9); 
+
     carouselTrack.innerHTML = "";
     indicatorsContainer.innerHTML = "";
 
-    allCarouselPosts.forEach((post) => {
+    limited.forEach((post) => {
       const card = document.createElement("div");
       card.classList.add("visited-card");
 
@@ -124,7 +136,7 @@ async function loadCarouselPosts() {
       carouselTrack.appendChild(card);
     });
 
-    setupCarousel(allCarouselPosts.length);
+    setupCarousel(limited.length);
   } catch (err) {
     console.error("Carousel load failed:", err);
   }
@@ -267,6 +279,51 @@ function renderMorePosts() {
 document
   .getElementById("show-more-btn")
   .addEventListener("click", renderMorePosts);
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const desktopInput = document.getElementById("search-post-desktop");
+  const mobileInput = document.getElementById("search-post-mobile");
+  const filterButtons = document.querySelectorAll(".filter-btn");
+
+  function getSearchQuery() {
+    
+    const desktopVisible = desktopInput?.offsetParent !== null;
+    const query = (desktopVisible ? desktopInput?.value : mobileInput?.value) || "";
+    return query.trim().toLowerCase();
+  }
+
+  function filterAndSearchPosts() {
+    const query = getSearchQuery();
+    const activeTag = document.querySelector(".filter-btn.active")?.dataset.tag || "all";
+
+    document.querySelectorAll(".newest-post").forEach((postCard) => {
+      const title = postCard.querySelector("h3")?.textContent.toLowerCase() || "";
+      const tags = Array.from(postCard.querySelectorAll(".tag")).map(tag =>
+        tag.textContent.toLowerCase()
+      );
+
+      const matchesSearch = title.includes(query);
+      const matchesTag = activeTag === "all" || tags.includes(activeTag);
+
+      postCard.style.display = matchesSearch && matchesTag ? "flex" : "none";
+    });
+  }
+
+  desktopInput?.addEventListener("input", filterAndSearchPosts);
+  mobileInput?.addEventListener("input", filterAndSearchPosts);
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      filterAndSearchPosts();
+    });
+  });
+});
+
+
 
 loadCarouselPosts();
 loadNewestPosts();

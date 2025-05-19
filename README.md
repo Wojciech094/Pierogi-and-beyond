@@ -195,7 +195,7 @@ Make sure you go through this checklist before submitting your project to Moodle
 - [Cypress](https://www.cypress.io/) - Next Generation Frontend Tooling
 
 ## Authors
-<!-- https://github.com/Noroff-FED-Campus-Assignments/vanilla-blog-site-fed-Wojciech094.git  -->
+ https://github.com/Noroff-FED-Campus-Assignments/vanilla-blog-site-fed-Wojciech094.git  
 
 - _Wojciech Lesniak  (@Wojciehc094)
 - Monde Sineke (@S3ak)
