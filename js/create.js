@@ -61,7 +61,7 @@ form?.addEventListener("submit", async (e) => {
     };
   }
 
-  // 🔁 LIMIT CAROUSEL: max 9 posts with "carousel" tag
+  // caro max 9
   try {
     if (tags.includes("carousel")) {
       const res = await fetch(
@@ -102,7 +102,7 @@ form?.addEventListener("submit", async (e) => {
     console.error("Error managing carousel limit:", error);
   }
 
-  // 📤 CREATE POST
+  // create post
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
@@ -125,7 +125,7 @@ form?.addEventListener("submit", async (e) => {
   }
 });
 
-// === LIVE IMAGE PREVIEW ===
+// live image
 const mediaUrlInput = document.getElementById("media-url");
 const previewWrapper = document.getElementById("image-preview");
 const previewImg = document.getElementById("preview-img");

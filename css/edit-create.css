@@ -1,30 +1,60 @@
+:root {
+  /* main colour */
+  --color-bg: #ffffff;
+  --color-white: #fff;
+  --color-form-bg: #fff7f0;
+  --color-form-border: #f1d2b1;
+  --color-heading: #a65300;
+  --color-button: #ae5a00;
+  --color-button-hover: #873e00;
+  --color-delete: #b30000;
+  --color-delete-bg: #eee;
+  --color-delete-hover: #fce6e6;
+  --color-tag-bg: #f3e4cc;
+  --color-text-success: green;
+  --color-input-border: #ccc;
+
+  /* size and gap */
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --spacing-section: 2rem;
+  --spacing-md: 1.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-xs: 0.5rem;
+
+  /* font */
+  --font-main: Arial, sans-serif;
+
+  /* shadow */
+  --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
 html,
 body {
   box-sizing: border-box;
   max-width: 1920px;
   margin: auto;
   padding: 0 30px;
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
   overflow-x: hidden;
 }
 
 .form-card {
-  background: #fff7f0;
-  border: 1px solid #f1d2b1;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  background: var(--color-form-bg);
+  border: 1px solid var(--color-form-border);
+  padding: var(--spacing-section);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   max-width: 700px;
-  margin: 2rem auto;
+  margin: var(--spacing-section) auto;
 }
 
 .form-card h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #a65300;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-heading);
 }
-
 
 .form-card form {
   display: flex;
@@ -35,19 +65,17 @@ body {
 .form-card input[type="text"],
 .form-card input[type="url"],
 .form-card textarea {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
   font-size: 1rem;
- 
 }
 
 .form-card textarea {
   min-height: 150px;
   resize: vertical;
 }
-
 
 .tags-checkboxes {
   display: flex;
@@ -56,9 +84,9 @@ body {
 }
 
 .tags-checkboxes label {
-  background: #f3e4cc;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  background: var(--color-tag-bg);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: bold;
   display: flex;
@@ -66,9 +94,8 @@ body {
 }
 
 .tags-checkboxes input[type="checkbox"] {
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-xs);
 }
-
 
 .form-card button[type="submit"],
 #delete-post {
@@ -76,44 +103,42 @@ body {
   width: fit-content;
   padding: 0.6rem 1.5rem;
   font-size: 1rem;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-weight: bold;
   cursor: pointer;
 }
 
 .form-card button[type="submit"] {
-  background-color: #ae5a00;
-  color: white;
+  background-color: var(--color-button);
+  color: var(--color-white);
   border: none;
   transition: background 0.2s ease;
 }
 
 .form-card button[type="submit"]:hover {
-  background-color: #873e00;
+  background-color: var(--color-button-hover);
 }
 
 #delete-post {
-  background-color: #eee;
-  color: #b30000;
-  border: 1px solid #b30000;
+  background-color: var(--color-delete-bg);
+  color: var(--color-delete);
+  border: 1px solid var(--color-delete);
 }
 
 #delete-post:hover {
-  background-color: #fce6e6;
+  background-color: var(--color-delete-hover);
 }
-
 
 #form-message {
   font-size: 0.95rem;
   margin-top: 0.5rem;
-  color: green;
+  color: var(--color-text-success);
 }
-
 
 .go-back {
   display: inline-block;
-  margin-top: 2rem;
-  color: #ae5a00;
+  margin-top: var(--spacing-section);
+  color: var(--color-button);
   font-weight: bold;
   text-decoration: none;
 }
@@ -122,10 +147,9 @@ body {
   text-decoration: underline;
 }
 
-
 @media (max-width: 600px) {
   .form-card {
-    padding: 1.5rem;
+    padding: var(--spacing-md);
   }
 
   .tags-checkboxes {

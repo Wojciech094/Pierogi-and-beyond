@@ -1,50 +1,88 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 40px 20px;
-  color: #333;
+:root {
+  /* color */
+  --color-bg: #f4f4f4;
+  --color-white: #ffffff;
+  --color-text: #333;
+  --color-heading: #222;
+  --color-border: #ccc;
+  --color-button: #b26500;
+  --color-button-hover: #8c4e00;
+  --color-error: #b30000;
+  --color-success: green;
+  --color-go-back: #ae5a00;
+  --color-go-back-hover: #ae5a00;
+
+  /* fonty */
+  --font-main: Arial, sans-serif;
+
+  /* size and */
+  --spacing-page: 40px;
+  --spacing-section: 30px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+
+  /* radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* shadow */
+  --shadow-box: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
+
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  margin: 0;
+  padding: var(--spacing-page) var(--spacing-sm);
+  color: var(--color-text);
+}
+
 
 h1,
 h2 {
   text-align: center;
-  color: #222;
+  color: var(--color-heading);
 }
+
 
 .log-container {
   max-width: 700px;
   margin: 0 auto;
-  background: #fff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: var(--color-white);
+  padding: var(--spacing-page);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-box);
 }
 
+/* form */
 form {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--spacing-md);
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-section);
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: var(--spacing-sm) 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
 }
 
+/* btn */
 button {
-  background-color: #b26500;
-  color: white;
+  background-color: var(--color-button);
+  color: var(--color-white);
   border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
+  padding: var(--spacing-sm) 18px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: bold;
   font-size: 0.95rem;
@@ -52,37 +90,40 @@ button {
 }
 
 button:hover {
-  background-color: #8c4e00;
+  background-color: var(--color-button-hover);
 }
 
+/*message */
 #register-message,
 #login-message {
   text-align: center;
   font-weight: bold;
-  margin-bottom: 20px;
-  color: #b30000;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-error);
 }
 
 #register-message.success,
 #login-message.success {
-  color: green;
+  color: var(--color-success);
 }
+
 
 label {
   display: block;
-  margin-top: 20px;
+  margin-top: var(--spacing-lg);
   font-weight: bold;
   font-size: 1.1rem;
 }
 
+/* go-back */
 .go-back {
   display: block;
-  background-color: #ffffff;
-  color: #ae5a00;
-  padding: 10px 16px;
+  background-color: var(--color-white);
+  color: var(--color-go-back);
+  padding: var(--spacing-sm) 16px;
   font-weight: bold;
-  border: 2px solid #ae5a00;
-  border-radius: 8px;
+  border: 2px solid var(--color-go-back);
+  border-radius: var(--radius-md);
   cursor: pointer;
   text-decoration: none;
   margin-bottom: 12px;
@@ -91,9 +132,10 @@ label {
 }
 
 .go-back:hover {
-  background-color: #ae5a00;
-  color: white;
+  background-color: var(--color-go-back-hover);
+  color: var(--color-white);
 }
+
 
 @media (max-width: 600px) {
   form {
