@@ -246,6 +246,14 @@
 
 
 @media (max-width: 850px) {
+  body,
+  main
+   {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+
   .top-bar {
     display: flex;
     align-items: center;
