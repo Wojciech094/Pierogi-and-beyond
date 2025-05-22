@@ -17,7 +17,7 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60">
+                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60" loading="lazy">
             </div>
 
             <nav class="main-nav">
@@ -25,7 +25,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="#">Recipes</a></li>
                     <li><a href="#">Articles</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
 
@@ -35,9 +35,10 @@
             </div>
 
             <div class="user-dropdown">
-                <button class="user-toggle" aria-label="Profile">
-                    <i class="fas fa-user-circle"></i>
-                </button>
+
+                <button class="user-toggle" id="user-avatar" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i></button>
+
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
                     
@@ -87,10 +88,7 @@
             </div>
         </section>
 
-        <h2>Create New Post</h2>
-        <section id="admin-tools" style="display: none;">
-            
-            <p id="form-message"></p></section>
+        <section id="admin-tools" style="display: none;"></section>
 
 
         <div class="content-wrapper">
@@ -173,7 +171,7 @@
                 <a href="#">Home</a>
                 <a href="#">Recipes</a>
                 <a href="#">Articles</a>
-                <a href="#">Contacts</a>
+                <a href="contact.html">Contacts</a>
             </div>
 
             <div class="footer-column">
@@ -225,3 +223,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+

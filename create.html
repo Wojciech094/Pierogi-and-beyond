@@ -3,7 +3,9 @@
 
 <head>
     <link rel="icon" type="image/png" href="Media/Img/favicon.png" />
-    <title>Pierogi and beyond</title>
+    <title>Create a new post | Pierogi and Beyond</title>
+    <meta name="description" content="Write and publish your own blog posts about Polish food and recipes.">
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -25,7 +27,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="#">Recipes</a></li>
                     <li><a href="#">Articles</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
 
@@ -35,12 +37,11 @@
             </div>
 
             <div class="user-dropdown">
-                <button class="user-toggle" aria-label="Profile">
-                    <i class="fas fa-user-circle"></i>
-                </button>
+                <button class="user-toggle" id="user-avatar" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i></button>
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
-                    <!-- <li><a href="my-posts.html">My Posts</a></li> -->
+                    
                     <button id="my-posts-btn" onclick="window.location.href='my-posts.html'">
                         My posts </button>
                     <button onclick="window.location.href='login.html'">Log in</button>
@@ -97,15 +98,27 @@
     <script src="js/auth.js" defer></script>
     <script src="js/create.js" defer></script>
     <script>
-        if (!localStorage.getItem("token")) {
-            window.location.href = "login.html";
-        }
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
 
-        const burger = document.getElementById("burger-menu");
-        const navLinks = document.getElementById("nav-links");
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.querySelector(".user-toggle");
+            const menu = document.getElementById("user-menu");
 
-        burger?.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
+            toggle?.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.add("hidden");
+                }
+            });
         });
     </script>
 </body>

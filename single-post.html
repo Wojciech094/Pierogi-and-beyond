@@ -3,7 +3,8 @@
 
 <head>
     <link rel="icon" type="image/png" href="Media/Img/favicon.png" />
-    <title>Pierogi and beyond</title>
+    <title>Post | Pierogi and Beyond</title>
+    <meta name="description" content="Read detailed posts about Polish food, recipes and stories.">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -18,7 +19,8 @@
         <div class="top-bar">
             <button id="burger-menu" class="burger-menu" aria-label="Toggle menu">☰</button>
             <div class="logo">
-                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60">
+                <img src="Media/Img/logo-2.svg" alt="My Blog Logo" width="60" loading="lazy">
+
             </div>
     
             <nav class="main-nav">
@@ -26,7 +28,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="#">Recipes</a></li>
                     <li><a href="#">Articles</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
     
@@ -36,9 +38,9 @@
             </div>
     
             <div class="user-dropdown">
-                <button class="user-toggle" aria-label="Profile">
-                    <i class="fas fa-user-circle"></i>
-                </button>
+                <button class="user-toggle" id="user-avatar" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i></button>
+
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
                     <button onclick="window.location.href='login.html'">Log in</button>
@@ -127,7 +129,7 @@
             <a href="#">Home</a>
             <a href="#">Recipes</a>
             <a href="#">Articles</a>
-            <a href="#">Contacts</a>
+            <a href="contact.html">Contacts</a>
         </div>
 
         <div class="footer-column">
@@ -160,7 +162,22 @@
             navLinks.classList.toggle('active');
         });
     </script>
-</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.querySelector(".user-toggle");
+            const menu = document.getElementById("user-menu");
+
+            toggle?.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.add("hidden");
+                }
+            });
+        });
+    </script>
 
 </html>
 

@@ -58,7 +58,7 @@ async function loadPost() {
           post.author.avatar?.url || "https://via.placeholder.com/40"
         }" 
              alt="${post.author.avatar?.alt || "Author avatar"}" 
-             class="avatar" />
+             class="avatar" loading="lazy"/>
         <p>By <strong>${post.author.name}</strong> • ${new Date(
       post.created
     ).toLocaleDateString("en-GB")}</p>

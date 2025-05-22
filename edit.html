@@ -3,7 +3,9 @@
 
 <head>
     <link rel="icon" type="image/png" href="Media/Img/favicon.png" />
-    <title>Pierogi and beyond</title>
+    <title>Edit your post | Pierogi and Beyond</title>
+    <meta name="description" content="Edit or update your blog post. Change title, body, tags or image.">
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -25,7 +27,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="#">Recipes</a></li>
                     <li><a href="#">Articles</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
 
@@ -35,9 +37,8 @@
             </div>
 
             <div class="user-dropdown">
-                <button class="user-toggle" aria-label="Profile">
-                    <i class="fas fa-user-circle"></i>
-                </button>
+                <button class="user-toggle" id="user-avatar" aria-label="Profile">
+                    <i class="fas fa-user-circle"></i></button>
                 <span id="welcome-msg"></span>
                 <div class="user-menu hidden" id="user-menu">
                     <button onclick="window.location.href='login.html'">Log in</button>
@@ -82,16 +83,27 @@
     <script src="js/auth.js" defer></script>
     <script src="js/edit.js" defer></script>
     <script>
-        if (!localStorage.getItem("token")) {
-            window.location.href = "account/login.html";
-        }
+        const burger = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
 
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.querySelector(".user-toggle");
+            const menu = document.getElementById("user-menu");
 
-        const burger = document.getElementById("burger-menu");
-        const navLinks = document.getElementById("nav-links");
+            toggle?.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
 
-        burger?.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
+            document.addEventListener("click", (e) => {
+                if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.add("hidden");
+                }
+            });
         });
     </script>
 </body>

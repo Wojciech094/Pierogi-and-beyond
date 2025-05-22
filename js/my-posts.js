@@ -34,7 +34,7 @@ async function loadMyPosts() {
 
       div.innerHTML = `
         <img src="${post.media?.url || "https://placehold.co/600x400"}"
-             alt="${post.media?.alt || post.title}" />
+             alt="${post.media?.alt || post.title}" loading="lazy"/>
         <div class="post-body">
           <div class="tags">
             ${post.tags

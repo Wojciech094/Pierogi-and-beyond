@@ -12,11 +12,13 @@ function checkUserStatus() {
   );
   const postsListSection = document.getElementById("posts-container");
   const myPostsBtn = document.getElementById("my-posts-btn");
+  const avatarBtn = document.getElementById("user-avatar");
+
   if (user?.isAdmin) {
     document.body.classList.add("admin-mode");
   }
+
   if (token && user) {
- 
     if (authButtons) authButtons.style.display = "none";
     if (userInfo) userInfo.style.display = "flex";
     if (welcomeMsg) welcomeMsg.textContent = `Hello, ${user.name}`;
@@ -25,11 +27,18 @@ function checkUserStatus() {
     if (postsToggleContainer) postsToggleContainer.style.display = "block";
     if (postsListSection) postsListSection.style.display = "block";
 
+    
+    if (user?.avatar?.url && avatarBtn) {
+      avatarBtn.innerHTML = `<img src="${user.avatar.url}" alt="${
+        user.avatar.alt || "User avatar"
+      }" class="avatar-img" />`;
+    }
+
     if (logoutBtn) {
       logoutBtn.onclick = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        window.location.reload(); 
+        window.location.reload();
       };
     }
   } else {
@@ -43,6 +52,11 @@ function checkUserStatus() {
     if (myPostsBtn) myPostsBtn.style.display = "none";
     if (postsToggleContainer) postsToggleContainer.style.display = "none";
     if (postsListSection) postsListSection.style.display = "none";
+
+    
+    if (avatarBtn) {
+      avatarBtn.innerHTML = `<i class="fas fa-user-circle"></i>`;
+    }
   }
 }
 

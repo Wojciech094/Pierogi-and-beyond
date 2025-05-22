@@ -1,7 +1,9 @@
 const usersToFetch = ["VooDoo", "Testuser123"];
 const username = "VooDoo";
 
-const token = `Bearer ${localStorage.getItem("token")}`;
+const rawToken = localStorage.getItem("token");
+const token = rawToken ? `Bearer ${rawToken}` : null;
+
 const user = JSON.parse(localStorage.getItem("user"));
 const isAdmin = user?.isAdmin;
 
@@ -12,12 +14,12 @@ const adminSection = document.getElementById("admin-tools");
 
 if (token && adminSection) {
   adminSection.style.display = "block";
-
-  const createBtn = document.createElement("a");
-  createBtn.href = "create.html";
-  createBtn.className = "btn-main";
-  createBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Create New Post`;
-  adminSection.append(createBtn);
+  adminSection.innerHTML = `
+    <h2>Create New Post</h2>
+    <a href="create.html" class="btn-main">
+      <i class="fa-solid fa-plus"></i> Create New Post
+    </a>
+  `;
 }
 
 // edit-delete
@@ -46,7 +48,10 @@ document.addEventListener("click", async (e) => {
       loadCarouselPosts();
       loadNewestPosts();
     } catch (err) {
-      console.error("Delete error:", err);
+      console.error("getPosts failed:", err);
+      postsContainer.innerHTML = `
+        <p style="color: red; font-weight: bold;">Failed to load admin posts. Please try again later.</p>
+      `;
     }
   }
 
@@ -108,11 +113,10 @@ async function loadCarouselPosts() {
       allCarouselPosts.push(...data);
     }
 
-    
     const sorted = allCarouselPosts.sort(
       (a, b) => new Date(b.created) - new Date(a.created)
     );
-    const limited = sorted.slice(0, 9); 
+    const limited = sorted.slice(0, 9);
 
     carouselTrack.innerHTML = "";
     indicatorsContainer.innerHTML = "";
@@ -123,7 +127,7 @@ async function loadCarouselPosts() {
 
       card.innerHTML = `
         <img src="${post.media?.url || "https://via.placeholder.com/300"}"
-             alt="${post.media?.alt || post.title}" />
+             alt="${post.media?.alt || post.title}" loading="lazy" />
         <div class="visited-card-content">
           <h3 class="card-title">${post.title}</h3>
         </div>
@@ -139,6 +143,11 @@ async function loadCarouselPosts() {
     setupCarousel(limited.length);
   } catch (err) {
     console.error("Carousel load failed:", err);
+    if (carouselTrack) {
+      carouselTrack.innerHTML = `
+        <p style="color: red; font-weight: bold;">Failed to load carousel posts.</p>
+      `;
+    }
   }
 }
 
@@ -198,7 +207,7 @@ function setupCarousel(totalCards) {
 //               new posts
 let allNewestPosts = [];
 let currentPostIndex = 0;
-const postsPerPage = 5;
+const postsPerPage = 10;
 
 async function loadNewestPosts() {
   const newestSection = document.getElementById("newest-posts-section");
@@ -254,7 +263,7 @@ function renderMorePosts() {
 
     card.innerHTML = `
       <img src="${post.media?.url || "https://via.placeholder.com/400"}"
-           alt="${post.media?.alt || post.title}" />
+            alt="${post.media?.alt || post.title}" loading="lazy" />
       <div class="post-body">
         <div class="tags">${tagHTML}</div>
         <h3>${post.title}</h3>
@@ -280,27 +289,27 @@ document
   .getElementById("show-more-btn")
   .addEventListener("click", renderMorePosts);
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const desktopInput = document.getElementById("search-post-desktop");
   const mobileInput = document.getElementById("search-post-mobile");
   const filterButtons = document.querySelectorAll(".filter-btn");
 
   function getSearchQuery() {
-    
     const desktopVisible = desktopInput?.offsetParent !== null;
-    const query = (desktopVisible ? desktopInput?.value : mobileInput?.value) || "";
+    const query =
+      (desktopVisible ? desktopInput?.value : mobileInput?.value) || "";
     return query.trim().toLowerCase();
   }
 
   function filterAndSearchPosts() {
     const query = getSearchQuery();
-    const activeTag = document.querySelector(".filter-btn.active")?.dataset.tag || "all";
+    const activeTag =
+      document.querySelector(".filter-btn.active")?.dataset.tag || "all";
 
     document.querySelectorAll(".newest-post").forEach((postCard) => {
-      const title = postCard.querySelector("h3")?.textContent.toLowerCase() || "";
-      const tags = Array.from(postCard.querySelectorAll(".tag")).map(tag =>
+      const title =
+        postCard.querySelector("h3")?.textContent.toLowerCase() || "";
+      const tags = Array.from(postCard.querySelectorAll(".tag")).map((tag) =>
         tag.textContent.toLowerCase()
       );
 
@@ -322,8 +331,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-
 
 loadCarouselPosts();
 loadNewestPosts();
