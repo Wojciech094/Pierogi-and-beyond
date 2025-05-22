@@ -11,7 +11,7 @@ This is a vanilla website that displays a list of items fetched from an API.
 <!-- You must replace these links -->
 
 - [Brief](https://lms.noroff.no/mod/folder/view.php?id=121394)
-- [Design](https://www.figma.com/design/IJLK5T6K90HRxZsy6hRhqc/Pierogi-and-beyond?node-id=0-1&m=dev&t=DjA66T66b85bzGgX-1)
+- [Design](https://www.figma.com/design/IJLK5T6K90HRxZsy6hRhqc/Pierogi-and-beyond?node-id=0-1&t=cwaYznCkyLBUuI1H-1)
 - [Production deploy](https://fascinating-syrniki-feed78.netlify.app/index.html)
 - [Deployment CI](https://app.netlify.com/projects/fascinating-syrniki-feed78/overview)
 - [API Docs](https://docs.noroff.dev/docs/v2/blog/posts)
